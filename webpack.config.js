@@ -8,14 +8,19 @@ module.exports = {
     publicPath: "/assets/",
     filename: "bundle.js"
   },
-  loaders: [
-      {
-        test: [/.jsx?$/, /.js?$/],
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        query: {
-          presets: ['es2015', 'react']
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
+  module: {
+    loaders: [
+        {
+          test: /\.jsx?$/,
+          loader: 'babel',
+          exclude: /node_modules/,
+          query: {
+            presets: ['react', 'es2015']
+          }
         }
-      }
-    ]
+      ]
+  }
 };
