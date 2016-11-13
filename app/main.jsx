@@ -20,6 +20,9 @@ render(
 
 var socket = io("localhost:3030");
 socket.on('helmet', function (data) {
-  console.log(data)
   store.dispatch({type: 'HELMET_DATA', helmet: data})
 });
+
+socket.on('helmet-reading', function(data) {
+  store.dispatch({type: 'HELMET_READING', data: data})
+})

@@ -5,7 +5,7 @@ var net = require('net');
 var _ = require('lodash');
 const readline = require('readline');
 
-devices = {}
+devices = {1:{name: "Dank Test Device", id:1}}
 
 app.listen(3030);
 
@@ -31,6 +31,12 @@ var server = net.createServer((socket) => {
     })
   })
 })
+
+setInterval(function(){
+  _.mapValues(devices, function(device){
+    io.emit('helmet-reading', {id: device.id, time:new Date().getTime(), value:Math.random()})
+  })
+}, 100);
 
 server.listen(3031);
 
