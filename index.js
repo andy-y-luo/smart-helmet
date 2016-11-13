@@ -34,7 +34,7 @@ var server = net.createServer((socket) => {
 
 setInterval(function(){
   _.mapValues(devices, function(device){
-    io.emit('helmet-reading', {id: device.id, time:new Date().getTime(), value:Math.random()})
+    io.emit('helmet-reading', {id: device.id, time:new Date(), value:Math.random()})
   })
 }, 100);
 
