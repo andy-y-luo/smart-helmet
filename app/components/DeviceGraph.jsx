@@ -1,5 +1,5 @@
 import React from "react"
-import {LineChart} from "react-d3-basic"
+import RC2 from 'react-chartjs2';
 
 const x = d =>{
   return d.time
@@ -15,24 +15,37 @@ const DeviceGraph = React.createClass({
        return '#ffffff'
     }
   },
-  render() {
-  return <LineChart
-        showXGrid = {false}
-        showYGrid = {false}
-        title = {this.props.device.name}
-        backgroundcolor = {this.changeOfGraph()}
-        width = {700}
-        height = {300}
-        margins = {{left:100, right: 100, top: 50, bottom:50}}
-        data = {this.props.device.readings}
-        chartSeries = {[{
-          field: "value",
-          name: "value",
-          color: '#0003ff'
-        }]}
-        x = {x}
-        />
+  getData() {
+    if(this.props.device.readings.length){
+      return {datasets: [{
+        radius: 0,
+        label: "Accel",
+        data: this.props.device.readings.map((d)=>{return d.y})
+      }],
+      labels:Array(200).join(".").split(".")
+      }
+    }
 
+  },
+  render() {
+    if(this.props.device.readings.length == 0){
+      return null
+    }
+    return <div className={"panel panel-success graph"}>
+    <div className="panel-heading">Panel heading without title</div>
+    <RC2 data={this.getData()} options={
+      {animation:{duration:0}, scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                        min: 0,
+                        max: 80
+                    }
+                  }],
+
+               },
+               legend:{display:false}
+            }} type='line' redraw={true} /></div>;
   }
 })
 
