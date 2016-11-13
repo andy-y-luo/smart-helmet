@@ -1,7 +1,12 @@
 #sidebar {
   background: #cccccc;
+  height:100%;
 }
 
 .graph {
   margin: 50px;
+}
+
+html, body, #container, #container > div {
+  height: 100%;
 }

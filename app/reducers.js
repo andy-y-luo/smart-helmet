@@ -39,9 +39,20 @@ const helmets = (state = {}, action) => {
   }
 }
 
+const messages = (state = [], action) => {
+  if(action.type == "MESSAGE"){
+    return [action.data, ...state]
+  }
+  if(action.type == 'DISMISS_ALERT'){
+    return _.filter(state, {id:action.id})
+  }
+  return state
+}
+
 const helmetsApp = (state = {}, action) => {
   return {
     helmets:helmets(state.helmets, action),
+    messages:messages(state.messages, action),
     title: "test"
   }
 }

@@ -24,7 +24,7 @@ var server = net.createServer((socket) => {
     var id = input
     console.log("ID: "+input)
     if(devices[id] == undefined){
-      devices[id] = {id: id, name:"New Device"}
+      devices[id] = {id: id, name:"New Device", last_warning:0}
       io.emit('helmet', devices[id]);
     }
     rl.on('line', function(input){
@@ -32,6 +32,12 @@ var server = net.createServer((socket) => {
       items = input.split("\t")
       time = items[0]
       value = items[1]
+      if(value > 50){
+        if(new Date().getTime() > devices[id].last_warning + 10000){
+          devices[id].last_warning = new Date().getTime();
+          io.emit('message', {level:'danger', message:"You dun goofd", id: Math.random()})
+        }
+      }
       io.emit('helmet-reading', {id: id, time:parseInt(time), value:parseInt(value)})
     })
   })
