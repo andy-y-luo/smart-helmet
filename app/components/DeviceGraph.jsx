@@ -1,5 +1,4 @@
 import React from "react"
-import {Chart} from "react-d3-core"
 import {LineChart} from "react-d3-basic"
 
 const x = d =>{

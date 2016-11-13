@@ -16,7 +16,7 @@ const helmet = (state = {}, action) => {
 const helmet_readings = (state = [], action) => {
   if(action.type == 'HELMET_READING' ){
     var new_state = [...state, {time: action.data.time, value: action.data.value}]
-    if(new_state.length > 20){
+    if(new_state.length > 500){
       new_state.splice(0, 1);
     }
     return new_state

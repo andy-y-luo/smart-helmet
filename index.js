@@ -5,7 +5,7 @@ var net = require('net');
 var _ = require('lodash');
 const readline = require('readline');
 
-devices = {1:{name: "Dank Test Device", id:1}}
+devices = {}
 
 app.listen(3030);
 
@@ -22,21 +22,26 @@ var server = net.createServer((socket) => {
   });
   rl.question("", function(input){
     var id = input
+    console.log("ID: "+input)
     if(devices[id] == undefined){
       devices[id] = {id: id, name:"New Device"}
       io.emit('helmet', devices[id]);
     }
     rl.on('line', function(input){
       console.log(input)
+      items = input.split("\t")
+      time = items[0]
+      value = items[1]
+      io.emit('helmet-reading', {id: id, time:parseInt(time), value:parseInt(value)})
     })
   })
 })
 
-setInterval(function(){
+/*setInterval(function(){
   _.mapValues(devices, function(device){
     io.emit('helmet-reading', {id: device.id, time:new Date().getTime(), value:Math.random()})
   })
-}, 100);
+}, 100);*/
 
 server.listen(3031);
 
