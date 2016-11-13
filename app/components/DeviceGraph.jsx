@@ -5,13 +5,23 @@ const x = d =>{
   return d.time
 }
 
-const DeviceGraph = React.createClass({
 
+const DeviceGraph = React.createClass({
+  changeOfGraph(){
+    if this.props.device.readings[this.props.device.readings.length-1] > 70{
+       return '#cc0200'
+    }
+    else{
+       return '#ffffff'
+    }
+  },
   render() {
   return <LineChart
         showXGrid = {false}
         showYGrid = {false}
         title = {this.props.device.name}
+        background = {changeOfGraph}
+        backgroundcolor = {changeOfGraph()}
         width = {700}
         height = {300}
         margins = {{left:100, right: 100, top: 50, bottom:50}}
